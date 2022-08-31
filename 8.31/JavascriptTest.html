@@ -12,11 +12,11 @@
         
         let test = prompt("원하는 레벨을 선택하세요");
 
-        if(test=="A"){
+        if(test.toUpperCase()=="A"){
             console.log('Level2');
-        }else if(test=="B"){
+        }else if(test.toUpperCase()=="B"){
             console.log('Level1');
-        }else if(test=="C"){
+        }else if(test.toUpperCase()=="C"){
             console.log('Basic Level');
         }else console.log('No Level');
        
@@ -24,14 +24,21 @@
 
     <script>
         
-        
-         let dan =prompt("2~9사이의 숫자를 입력하세요");
+        let regular = /^[2-9]+$/;
+        let dan =prompt("2~9사이의 숫자를 입력하세요");
+
+        while(regular.test(dan)==false){
+            dan =prompt("2~9사이의 숫자만 입력할 수 있습니다.");
+        }
+
+        console.log('입력한'+dan+'단 결과');
 
         for(let i=1; i<10; i++){
-            let result = i + "*" + dan + "=" + i*dan;
+            let result = dan + "*" + i + "=" + i*dan;
             console.log(result);
             
         } 
+        console.log('=====구구단 2~9단 전체보기======');
 
         for(let i=2; i<10; i++){
 
