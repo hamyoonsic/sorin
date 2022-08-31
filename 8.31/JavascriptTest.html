@@ -12,13 +12,23 @@
         
         let test = prompt("원하는 레벨을 선택하세요");
 
-        if(test.toUpperCase()=="A"){
+
+        if(test=="A" || test=='a'){
+            console.log('Level2');
+        }else if(test=="B"  || test=='b'){
+            console.log('Level1');
+        }else if(test=="C"  || test=='c'){
+            console.log('Basic Level');
+        }else console.log('No Level');
+
+
+       /*  if(test.toUpperCase()=="A"){
             console.log('Level2');
         }else if(test.toUpperCase()=="B"){
             console.log('Level1');
         }else if(test.toUpperCase()=="C"){
             console.log('Basic Level');
-        }else console.log('No Level');
+        }else console.log('No Level'); */
        
     </script>
 
