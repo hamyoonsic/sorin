@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        
+        let test = prompt("원하는 레벨을 선택하세요");
+
+        if(test=="A"){
+            console.log('Level2');
+        }else if(test=="B"){
+            console.log('Level1');
+        }else if(test=="C"){
+            console.log('Basic Level');
+        }else console.log('No Level');
+       
+    </script>
+
+    <script>
+        
+        
+         let dan =prompt("2~9사이의 숫자를 입력하세요");
+
+        for(let i=1; i<10; i++){
+            let result = i + "*" + dan + "=" + i*dan;
+            console.log(result);
+            
+        } 
+
+        for(let i=2; i<10; i++){
+
+            console.log(i + "단");
+
+            for(let k=1; k<10; k++){
+                
+                
+                console.log(i+'*'+k+'='+ i*k);
+                
+            }
+
+            console.log("========")
+        }
+        
+    </script>    
+
+    <script>
+        
+        const color = ['red','blue','green'];
+
+        console.log('COLOR LIST');
+        console.log('=====================');
+        for(let i=0; i<color.length; i++){
+            console.log(color[i]);
+        }
+        
+    </script>
+
+</body>
+</html>
