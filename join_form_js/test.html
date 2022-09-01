@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function addRow(){
+
+
+        let table = document.getElementById('table1');
+
+        let newRow = table.insertRow(table.rows.length);
+        let newCell1 = newRow.insertCell(0);
+        let newCell2 = newRow.insertCell(1);
+        let newCell3 = newRow.insertCell(2);
+
+        newCell1.innerText = "1";
+        newCell2.innerText = "2";
+        newCell3.innerText = "3";
+        }
+
+    </script>
+</head>
+<body>
+    <form id="form">
+        <table id="table1" style="border:1px solid black;">
+            <tr>
+                <th>
+                    첫칸
+                </th>
+
+                <td>
+                    둘째칸
+                </td>
+            </tr>
+
+        </table>
+    </form>
+    <input type="button" value="한칸추가" onclick="addRow();"/>
+</body>
+</html>
