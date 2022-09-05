@@ -98,9 +98,9 @@
             </form>
             <div class="confirm">
                 <div class="wrapper">
-                    <!-- <template id="user_template">
+                    <template id="user_template">
                         <tr>
-                            <td><input type="checkbox" class="check" value="{index}"></td>
+                            <td></td>
                             <td>{username}</td>
                             <td>{email}</td>
                             <td>{pwd}</td>
@@ -109,11 +109,11 @@
                             <td>{privacy}</td>
                             <td>{marketing}</td>
                         </tr>
-                    </template> -->
+                    </template>
 
                     <table id="table" class="table table-hover table-mc-light-blue">
                         <thead>
-                            <tr>
+                            <tr id="content">
                                 <th><input type="checkbox" id="check_all"></th>
                                 <th>이름</th>
                                 <th>이메일</th>
@@ -124,7 +124,7 @@
                                 <th>마케팅 수신 동의</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody id="target"></tbody>
                     </table>
                     <button type="button" id="delete">선택 삭제</button>    
                 </div>

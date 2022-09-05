@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-
+    
 
     /** Validation Check Start **/
     /* 이름 */
@@ -96,112 +96,154 @@
     /** Validation Check End **/
 
     
+    // 최초접근시 회원데이터 불러오기
+    window.onload = function(){
+        
+        
+        let f_user_arr = JSON.parse(localStorage.getItem('user_arr'));
+        
+        //가입자 데이터 수만큼 템플릿 복사
+        for(let i = 0; i<f_user_arr.length; i++){
+
+            let count =0;
+
+            let template = document.querySelector('#user_template');
+            let newContent = document.importNode(template.content,true).firstElementChild;
+            let tbody = document.querySelector('#target');
+            newContent.querySelectorAll('td').forEach(function(element) {
+
+                let value = '';
+                
+                
+                if(count==0){
+
+                    let x = document.createElement("input");
+
+                    x.setAttribute("type", "checkbox");
+
+                    x.setAttribute("id" , `user_${i}`)
+                    
+                    element.appendChild(x);
+                    
+                    count++
+                
+                }else{
+
+                    for(let k in f_user_arr[i]) {
+                    
+                        if(element.innerText === `{${k}}`) {
+                            let obj =f_user_arr[i];
+                            value = obj[k];
+                            
+                        }
+                    
+                    }
+    
+                    element.innerText = value;
+                }
+
+            });
+    
+            
+            tbody.appendChild(newContent);
+        }
+    }
+
+
+    
+
     // 회원가입 submit
     document.getElementById('form').addEventListener('submit', function(event) {
+        event.preventDefault();
         
-        const urlParams = new URL(location.href).searchParams;
+        let userData = Object.fromEntries(new FormData(this).entries());
+        
+        //회원가입 데이터 로컬스토리지에 저장
+        let user_arr = [];//배열 초기화
+        
+        user_arr.push(userData);//배열에 가입데이터 저장
 
-        const   username    = urlParams.get('username'),
-                email       = urlParams.get('email'),
-                pwd         = urlParams.get('pwd'),
-                pwdConfirm  = urlParams.get('pwdConfirm'),
-                ser_addr    = urlParams.get('ser_addr'),
-                gender      = urlParams.get('gender'),
-                rm          = urlParams.get('rm'),
-                privacy     = urlParams.get('privacy'),
-                marketing   = urlParams.get('marketing');
-    /*
-       if(!username){
-            
-            alert('이름을 입력하세요');
-            document.getElementById('username').focus();
-            return;
-       }
+        let origin = JSON.parse(localStorage.getItem('user_arr')); //기존 로컬스토리지에 있는 회원정보 가져오기
 
-       if(!email){
-            
-            alert('이메일를 입력하세요');
-            document.getElementById('email').focus();
-            return;
-       }
-       
+        origin.push(user_arr[0]); //기존 데이터에 새로운 가입자데이터 추가
 
-       if(!pwd){
-            
-            alert('비밀번호를 입력하세요');
-            document.getElementById('pwd').focus();
-            return;
-       }
-       
+        let origin_str = JSON.stringify(origin);
 
-       if(!privacy){
-            
-            alert('개인정보수집동의 하세요');
-            document.getElementById('privacy').focus();
-            return;
-       }
-       */
-    
-       console.log('이름='+username);
-       console.log('이메일='+email);
-       console.log('비밀번호='+pwd);
-       console.log('비밀번호확인='+pwdConfirm);
-       console.log('지역='+ser_addr);
-       console.log('성별='+gender);
-       console.log('자기소개='+rm);
-       console.log('개인정보동의='+privacy);
-       console.log('마케팅동의='+marketing); 
-    
-    /*
+        for(let i=0; i<origin_str.length; i++){
+            localStorage.setItem('user_arr', origin_str);
+        }
 
-            (실습문제 2) form 전송 시 각 항목 입력값 확인
-              # 이름, 이메일, 비밀번호, 개인정보수집동의 필수 입력 값
+        
+        
+        //회원가입 데이터 template 치환
 
-        const   username    = document.getElementById('username').value,
-                email       = document.getElementById('email').value, 
-                pwd         = document.getElementById('pwd').value, 
-                pwdConfirm  = document.getElementById('pwdConfirm').value, 
-                ser_addr    = document.getElementById('user_addr').value, 
-                gender      = document.getElementById('gender').value, 
-                rm          = document.getElementById('rm').value,
-                privacy     = document.getElementById('privacy').value, 
-                marketing   = document.getElementById('marketing').value; 
-                 
-           
-        */
-    /*          
-        const table = document.getElementById('table');
+        let template = document.querySelector('#user_template');
 
-        const newRow = table.insertRow(table.rows.length);
-        const newCell1 = newRow.insertCell(0);
-        const newCell2 = newRow.insertCell(1);
-        const newCell3 = newRow.insertCell(2);
-        const newCell4 = newRow.insertCell(3);
-        const newCell5 = newRow.insertCell(4);
-        const newCell6 = newRow.insertCell(5);
-        const newCell7 = newRow.insertCell(6);
-        const newCell8 = newRow.insertCell(7);
-    
-        ;
+        let newContent = document.importNode(template.content,true).firstElementChild;
 
-        newCell1.innerText = "";
-        newCell2.innerText = username;
-        newCell3.innerText = email;
-        newCell4.innerText = pwd;
-        newCell5.innerText = ser_addr;
-        newCell6.innerText = gender;
-        newCell7.innerText = privacy;
-        newCell8.innerText = marketing;
-    */   
- 
- 
+        
+        let tbody = document.querySelector('#target');
+
+        newContent.querySelectorAll('td').forEach(function(element) {
+            let value = '';
+
+            for(let i in userData) {
+                if(element.innerText === `{${i}}`) {
+                    value = userData[i];
+                }
+            }
+
+            element.innerText = value;
+        });
+
+        
+        tbody.appendChild(newContent);
+        
+
+
+
      });
+
+
     
+    //전체선택 전체선택해체
+    document.getElementById('check_all').addEventListener('click', function(event){
+
+        let checkbox = document.querySelectorAll('input[type="checkbox"]');
+
+        if(document.getElementById('check_all').checked==true){
+            checkbox.forEach((element) => {
+                element.checked=true;
+            })
+        }else if(document.getElementById('check_all').checked==false){
+
+            checkbox.forEach((element) => {
+                element.checked=false;
+            })
+        }
+          
+    });
+
+
+
+    //하나만 체크해도 전체체크 풀리기
+    
+    
+
+    while(true){
+        let one_check = document.querySelectorAll('#target :last-child');
+        alert(one_check.length);
+        one_check.forEach((element) => {
+            if(element.checked == false){
+                document.getElementById('check_all').checked = false;
+            }
+        });
+        break;
+    }
+ 
 })();
 
 
 
-/* 
-자바스크립트 버튼클릭시 추가되는 테이블 행/ 새로고침하면 사라지는 이유
-*/
+
    
