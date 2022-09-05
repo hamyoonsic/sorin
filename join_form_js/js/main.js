@@ -227,18 +227,9 @@
 
 
     //하나만 체크해도 전체체크 풀리기
-    
-    
-
     while(true){
-        let one_check = document.querySelectorAll('#target :last-child');
-        alert(one_check.length);
-        one_check.forEach((element) => {
-            if(element.checked == false){
-                document.getElementById('check_all').checked = false;
-            }
-        });
-        break;
+        let check_list = document.querySelectorAll('input')
+        https://myhappyman.tistory.com/115
     }
  
 })();
