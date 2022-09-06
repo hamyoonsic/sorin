@@ -98,10 +98,10 @@
     
     // 최초접근시 회원데이터 불러오기
     window.onload = function(){
-        
-        
-        let f_user_arr = JSON.parse(localStorage.getItem('user_arr'));
-        
+
+        try {
+            let f_user_arr = JSON.parse(localStorage.getItem('user_arr'));
+
         //가입자 데이터 수만큼 템플릿 복사
         for(let i = 0; i<f_user_arr.length; i++){
 
@@ -113,7 +113,6 @@
             newContent.querySelectorAll('td').forEach(function(element) {
 
                 let value = '';
-                
                 
                 if(count==0){
 
@@ -147,6 +146,13 @@
             
             tbody.appendChild(newContent);
         }
+            
+        } catch (error) {
+           console.log("가입자 없음");
+        }
+
+        
+
     }
 
 
@@ -163,8 +169,16 @@
         
         user_arr.push(userData);//배열에 가입데이터 저장
 
-        let origin = JSON.parse(localStorage.getItem('user_arr')); //기존 로컬스토리지에 있는 회원정보 가져오기
+        //기존 로컬스토리지에 있는 회원정보 가져오기
+        try {
+            var origin = JSON.parse(localStorage.getItem('user_arr')); 
+            
+        } catch (error) {
+            var origin = [];
+        }
+        
 
+        
         origin.push(user_arr[0]); //기존 데이터에 새로운 가입자데이터 추가
 
         let origin_str = JSON.stringify(origin);
@@ -172,6 +186,7 @@
         for(let i=0; i<origin_str.length; i++){
             localStorage.setItem('user_arr', origin_str);
         }
+        
 
         
         
@@ -198,7 +213,7 @@
 
         
         tbody.appendChild(newContent);
-        
+        location.reload();
 
 
 
@@ -209,7 +224,7 @@
     //전체선택 전체선택해체
     document.getElementById('check_all').addEventListener('click', function(event){
 
-        let checkbox = document.querySelectorAll('input[type="checkbox"]');
+        let checkbox = document.querySelectorAll('td > input');
 
         if(document.getElementById('check_all').checked==true){
             checkbox.forEach((element) => {
@@ -224,14 +239,51 @@
           
     });
 
-
-
     //하나만 체크해도 전체체크 풀리기
-    while(true){
-        let check_list = document.querySelectorAll('input')
-        https://myhappyman.tistory.com/115
-    }
- 
+    document.querySelector('tbody').addEventListener('click' , function(event){
+
+        let checkboxes = document.querySelectorAll('td > input');
+        let checked = document.querySelectorAll('td :checked');
+        let check_all = document.querySelector('#check_all');
+
+            if(checkboxes.length === checked.length)  {
+                check_all.checked = true;
+            }else {
+                check_all.checked = false;
+            }
+     
+    });
+
+    
+    //삭제
+    document.getElementById('delete').addEventListener('click' , function(event){
+
+        let user_arr = JSON.parse(localStorage.getItem('user_arr'));
+        let checked = document.querySelectorAll('td :checked');
+
+        if(checked.length === 0 ){
+            alert("삭제할 회원을 선택해 주세요");
+            return;
+        }
+        
+        if(confirm("정말 삭제하시겠습니까?")==true){
+
+            checked.forEach((element) => {
+
+            let select_id = element.parentElement.parentElement.children[1]
+
+                //for(let user of user_arr){
+                    //if(Object.keys(user).find(username => user[username] ===  select_id)){
+                        element.parentElement.parentElement.remove();
+                        delete user_arr.user;
+                        localStorage.setItem('user_arr' , user_arr);
+                        location.reload();
+                    //}
+                //}
+          });
+        }          
+    });
+
 })();
 
 
