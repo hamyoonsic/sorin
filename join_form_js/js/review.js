@@ -205,3 +205,5 @@ if(event.target.classList.contains('check')) 실제로 내가 누른 대상을 �
 제이쿼리에서는
 $('tbody','check').on('click', function(event){});
 더 편하게 사용할 수 있음
+
+

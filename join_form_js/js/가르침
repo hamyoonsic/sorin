@@ -1,0 +1,115 @@
+event.target.classList.contains('check') 이벤트발생 대상중에서 class 'check'를 포함하고 있는 ~~
+
+사용자에 관련된 것들은 전부 user 객체에 집어넣기
+
+
+function isArrayLike 배열인지 확인하는 것 배열은 프로퍼티에 length가 무조건 있다
+.length를 찍었을때 -1 보다 크면 배열인지 알 수 있음
+
+toArray 배열로 바꾸는 함수 (삼항연산자써서 난해한 부분)
+
+.slice.call(value) 로 다시 배열로만듬??
+
+//프로토타입
+
+Array.prototype.slice.call(value) 이러면 배열이 복사가댐?...
+
+
+var a = {
+    b : 1
+};
+
+var b = a ;
+
+b.aaaaa = 1 하면 b, a 값이 똑같이 나오는 것을 확인할 수 있다.Array
+
+이런 공유되는 것들을 끊어내는 역할이 위 프로토타입코드..?
+
+아무튼 유사배열같은 친구들을 배열로 바꿔준다  (selectList nodeList)
+
+왜 바꾸냐면 배열에서 쓸 수 있는 indexOf 등등을 사용할 수 있기 때문
+
+document.querySelectorAll('div') = nodeList로 결과나옴
+Array.prototype.slice.call(document.querySelectorAll('div')); = array
+
+---
+
+loopArrayLike 
+
+기존의 forEach 와 다르게 callback함수를 계속호출하면 멈출 수 있음.............
+어떤 값이 들어올지모르기때문에 array로 바꾸기
+역순으로 루프돌리기 그래야 중간에 간섭을 안받음
+역순으로 안돌리면 스플레이스 같은 거 쓰면 오류날 수 있음
+
+아무튼 리턴이 false면 멈추기
+
+
+call 은 함수에서만 사용가능
+call(값을 받을this. 매개변수,매개변수,매개변수)
+여기서는 this, value값, 인덱스값 , ?
+
+--
+
+?? 널리쉬?
+
+return JSON.parse(localStorage.getItem(this._key)) ?? []
+
+??널리쉬는 앞에 것이 값이 null이나 undefind가 나오면 뒤에 것으로 [] 빈 배열로 넘겨버리는 것
+
+이벤트버블링
+form / div / p
+
+p를 눌러도 p위치가 form의 div안에 있기에
+
+p 실행 div 실행 form실행 3번 실행댐
+
+이런 이벤트 버블링 막는 기능도 있음
+
+
+
+
+getMaxIndex 인덱스 최대값 구하는 함수임 //인덱스관리
+
+나중에 회원데이터 추가할때 최대값에 +1 해줄때도 사용하는함수
+
+사용자정보를 조회 this.sel()
+
+인덱스, 사용자데이터가 조회가 안됬을시를 위해 -1 반환도함
+
+Math.max(dasd)
+하면 최대값 나옴
+
+
+Math.max(...indexList) 이건 배열값 ex [1, 2, 3] 을 (1,2,3) 값으로 바꿔줌
+배열에서만 사용가능
+
+delete라는 예약어라서 함수로 사용불가
+
+--
+
+sel()
+유저정보를 indexList를 받아서 한명이건 여러명이건 조회가능하도록
+
+//
+
+Object.assign({},info)
+
+배열 특정값 제거하기
+ex) data.splice(지울인덱스, 1) 뒤에는 몇개를 지울 ㅓㅅ인지
+
+
+append() 함수는 element는 추가위치
+template은 추가할 태그
+indexList는 유저
+
+document.body.dataset.a =1 ; 일케하면
+
+<body a="1"></body> 이라는 속성이 추가됨
+
+element instanceof Element 이건 앞에 엘리먼트가 엘리먼트 태그로 만들어졌는지 확인
+template instanceof HTMLTemplateElement 는 template변수가 html템플릿 태그로 만들어졌는지 확인
+
+
+자신삭제하는방법
+
+element.parentElement.removeChild(element) 본인위치에서 부모를 찾아서 그 자식을 제거하기
