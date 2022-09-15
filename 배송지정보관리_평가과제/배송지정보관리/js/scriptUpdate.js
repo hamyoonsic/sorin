@@ -1,7 +1,8 @@
 (function(){
 
+    let index ;
     
-    let toggle = true;
+    let toggle = false;
     //필수입력요소
     let formElements = [
         document.querySelector("#shipaddr"),    //배송지명
@@ -12,13 +13,43 @@
         document.querySelector("#postcode"),    //우편번호
         document.querySelector("#road"),        //주소
         document.querySelector("#detail"),      //상세정보
-        document.querySelector("#privacyYn"),   //배송정보수집 동의
         ];
        
 
     //### 1,2 글자수 제한 = html코드에서 옵션
     
     window.addEventListener('load',function(){
+
+        //파라메터로 받은 유저이름
+        const url = new URL(location.href);
+        const urlParams = url.searchParams;
+        let username = (urlParams.get('username'));
+        
+        //유저이름에 맞는 데이터 인덱스값 구하기
+        let dataArr = JSON.parse(localStorage.getItem('user')) ?? [];
+        for(let i of dataArr){
+            var result = Object.values(i)
+            //console.log("result==="+result);
+            //console.log("resultdasdsa==="+result[1]);
+            if(JSON.stringify(result[1]) == username){
+
+                for(let k in dataArr){
+                    
+                    if(dataArr[k].index==result[11]){
+                        //console.log("이거?="+k);
+                        //console.log("이거hgfh="+i);
+
+                        
+                        index = k;
+                        
+                    }
+                }
+                //index = Object.keys(result);
+               // console.log(index);
+            }
+        } 
+
+        updateData(index);
         if(toggle){
             document.querySelector("#uphonemid").disabled = true;
             document.querySelector("#uphonemid").value = "";
@@ -28,6 +59,10 @@
             document.querySelector("#uphonemid").disabled = false;
             document.querySelector("#uphonelast").disabled = false;
         }
+
+
+        
+
     })
     
     //### 3. 휴대폰 번호 "없음" 선택시 inputbox비활성화
@@ -127,51 +162,65 @@
                 alert("특수문자는 입력하실 수 없습니다");
                 element.value="";
                 element.focus();
+                //element.value = element.value.substring(0,element.value.length -1);
             }
         });
     });
+    
 
     
-    //-------------------- 배송지 데이터 저장
-
+    //수정하기
     document.getElementById('form').addEventListener('submit', function(event) {
         event.preventDefault();
-        let formData =  Object.fromEntries(new FormData(this).entries())
-        formData.defaultYn = document.querySelector("#defaultYn").checked;
-        formData.privacyYn = document.querySelector("#privacyYn").checked;
-        formData.extra = document.querySelector("#extra").value;
-        addUser(formData);
-        location.href="/배송지정보관리_평가과제/배송지정보관리/list.html";
-    });
 
-    function addUser(data) {
-        if(data) {
-            const user = getUser();
+        
+        if(confirm('수정하시겠습니까?')) {
+            let updataData = JSON.parse(localStorage.getItem('user'));
+            updataData[index].ship_addr = document.getElementById('shipaddr').value;
+            updataData[index].user_name = document.getElementById('username').value;
+            if(!updataData[index].user_phone_first==""){
+                updataData[index].user_phone_first = document.getElementById('uphonefirst').value;
+                updataData[index].user_phone_mid = document.getElementById('uphonemid').value;
+                updataData[index].user_phone_last =document.getElementById('uphonelast').value;
+            }   
+            updataData[index].postcode = document.getElementById('postcode').value;
+            updataData[index].road = document.getElementById('road').value;
+            updataData[index].detail = document.getElementById('detail').value;
+            updataData[index].extra = document.getElementById('extra').value;
 
-            data.index = getMaxUserIndex() + 1;
             
-            user.push(data);
-
-            localStorage.setItem('user', JSON.stringify(user));
-        }
-    }
-    function getUser() {
-        return JSON.parse(localStorage.getItem('user')) ?? [];
-    }
-    function getMaxUserIndex() {
-        const userIndex = [-1];
-
-        for(let data of getUser()) {
-            userIndex.push(data.index);
+            localStorage.removeItem('user'); //삭제
+            localStorage.setItem('user', JSON.stringify(updataData)); //추가
+            location.href="/배송지정보관리_평가과제/배송지정보관리/list.html";
         }
 
-        return Math.max(...userIndex);
-    }
-
+        
+    });
 
     
 
+
+    //수정하기전 원본 데이터 출력
+    function updateData(index) {
+
+        let updataData = JSON.parse(localStorage.getItem('user'));
+        document.getElementById('shipaddr').value = updataData[index].ship_addr
+        document.getElementById('username').value = updataData[index].user_name;
+        if(!updataData[index].user_phone_first==""){
+
+            document.getElementById('uphonefirst').value = updataData[index].user_phone_first;
+            document.getElementById('uphonemid').value = updataData[index].user_phone_mid;
+            document.getElementById('uphonelast').value = updataData[index].user_phone_last;
+        }
+        document.getElementById('postcode').value = updataData[index].postcode;
+        document.getElementById('road').value = updataData[index].road;
+        document.getElementById('detail').value = updataData[index].detail;
+        document.getElementById('extra').value = updataData[index].extra;
+   
+    }
+  
 })();
+
 
 
 

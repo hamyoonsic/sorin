@@ -1,18 +1,19 @@
 (function(){
     addTable();
-    //데이터 테이블 추가
+    //데이터 테이블 생성
     function addTable(){
+
+        
 
         let dataArr = JSON.parse(localStorage.getItem('user')) ?? [];
         
-        let target = document.getElementById('target');
+        let target = document.getElementById('target')
         let table = document.getElementById('table');
-        
-        
+
             for(let i of dataArr){
                 let result = Object.values(i)
                 //let insData = Object.values(j)
-                let newRow = table.insertRow();
+                let newRow = target.insertRow();
                 let cell1 = newRow.insertCell(0);
                 let cell2 = newRow.insertCell(1);
                 let cell3 = newRow.insertCell(2);
@@ -21,11 +22,11 @@
                 let cell6 = newRow.insertCell(5);
                 let cell7 = newRow.insertCell(6);
                 let cell8 = newRow.insertCell(7);
-                cell1.innerHTML = '<input type="checkbox" class="check" value="' + result[10] + '"/>';
+                cell1.innerHTML = '<input type="checkbox" class="check" value="' + result[11]  + '"/>';
                 cell2.innerHTML = result[0];
                 cell3.innerHTML = result[1];
                 cell4.innerHTML = result[2]+ "-" + result[3]+ "-" + result[4];
-                cell5.innerHTML = "(" + result[5] + ")"+result[6];
+                cell5.innerHTML = "(" + result[5] + ")"+result[6] +" " + result[7];
                 cell6.innerHTML = result[8];
                 cell7.innerHTML = result[9];
                 cell8.innerHTML = '<button class="updt">수정</button>';
@@ -57,9 +58,11 @@
                 document.querySelectorAll('.check:checked').forEach(function(element, index, array) {
                     removeUser(element.value);
                     
+                    
                 });
-                alert("삭제되었습니다");
                 location.reload();
+                alert("삭제되었습니다"); 
+                
             }else{
                 alert("삭제할 데이터를 선택하세요");
             }
@@ -91,16 +94,38 @@
         }
     }
     
-
+    //수정
     document.querySelector('table').addEventListener('click', function(event){
         
         if(event.target.classList.contains('updt')){
-            alert("fdsfds");
 
-            let tr = event.target.parentElement.parentElement;
-            console.log(event.target.parentElement.parentElement);
+            let input = event.target.parentElement.parentElement.children[2].innerHTML;
+            let inputStr = JSON.stringify(input);
+            //let inputIndex = inputStr.indexOf('value');
+            //let inputValue = inputStr.charAt(inputIndex+8);
+
+            
+            location.href="/배송지정보관리_평가과제/배송지정보관리/update.html?username=" + inputStr;
+
+
+            
+
+           
         }
 
+
+            //let start = inputStr.indexOf('>');
+            //let end = inputStr.indexOf('<');
+
+            //let inputValue = inputStr.substring(start,end);
+
+            //console.log(inputStr);
+            //console.log("start="+start+"end="+end+"넘어가는거="+inputValue);
+    });
+
+    //추가
+    document.getElementById('ins').addEventListener('click', function(event) {
+        location.href="/배송지정보관리_평가과제/배송지정보관리/regist.html";
     });
     
 })();

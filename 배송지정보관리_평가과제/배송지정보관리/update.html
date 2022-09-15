@@ -11,7 +11,7 @@
     />
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/sign.css" />
-    <script src="js/script.js" defer></script>
+    <script src="js/scriptUpdate.js" defer></script>
   </head>
   <body>
     <main>
@@ -28,6 +28,7 @@
                 name="ship_addr"
                 id="shipaddr"
                 placeholder="배송지"
+                maxlength='19'
                 autofocus
               />
               <span class="icon"></span>
@@ -41,6 +42,7 @@
                 name="user_name"
                 id="username"
                 placeholder="받으시는 분"
+                maxlength='9'
                 autofocus
               />
               <span class="icon"></span>
@@ -52,7 +54,7 @@
             <h4 class="sub_tit">휴대폰번호</h4>
             <div class="field_wrapper phone">
               <div class="field">
-                <select name="user_phone_first" id="uphonefirst">
+                <select name="user_phone_first" id="uphonefirst" class="uphonefirst">
                   <option value="">없음</option>
                   <option value="010">010</option>
                   <option value="011">011</option>
@@ -62,7 +64,8 @@
               </div>
               <div class="field">
                 <input
-                  type="number"
+                  type="text" 
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
                   name="user_phone_mid"
                   id="uphonemid"
                   min="0"
@@ -71,7 +74,8 @@
               </div>
               <div class="field">
                 <input
-                  type="number"
+                  type="text" 
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
                   name="user_phone_last"
                   id="uphonelast"
                   min="0"
@@ -125,11 +129,12 @@
                 placeholder="배송지 관련 특이사항을 입력해주세요."
               ></textarea>
             </div>
+            
           </fieldset>
           <hr />
 
           <div>
-            <button type="submit" class="button">수정</button>
+            <button type="submit" class="button" id="submit">수정</button>
           </div>
         </form>
       </section>
