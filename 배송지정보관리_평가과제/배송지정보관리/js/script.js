@@ -141,7 +141,8 @@
         formData.privacyYn = document.querySelector("#privacyYn").checked;
         formData.extra = document.querySelector("#extra").value;
         addUser(formData);
-        location.href="/배송지정보관리_평가과제/배송지정보관리/list.html";
+        
+        location.href="./list.html";
     });
 
     function addUser(data) {

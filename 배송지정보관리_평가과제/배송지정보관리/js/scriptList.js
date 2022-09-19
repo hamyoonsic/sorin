@@ -105,7 +105,8 @@
             //let inputValue = inputStr.charAt(inputIndex+8);
 
             
-            location.href="/배송지정보관리_평가과제/배송지정보관리/update.html?username=" + inputStr;
+
+            location.href= "./update.html?username=" + inputStr;
 
 
             
@@ -125,7 +126,7 @@
 
     //추가
     document.getElementById('ins').addEventListener('click', function(event) {
-        location.href="/배송지정보관리_평가과제/배송지정보관리/regist.html";
+        location.href="./regist.html";
     });
     
 })();
