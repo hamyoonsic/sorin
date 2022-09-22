@@ -31,7 +31,7 @@
     })
     
     //### 3. 휴대폰 번호 "없음" 선택시 inputbox비활성화
-    document.addEventListener('change', event => {
+    document.querySelector('#uphonefirst').addEventListener('change', event => {
        
         toggle = false;
         document.querySelector("#uphonemid").disabled = false;
@@ -51,8 +51,13 @@
     //### 필수입력요소 체크
     document.querySelector('#submit').addEventListener("click", function(event){
         for(let element of formElements) {
-            if(!document.querySelector("#uphonefirst").value=="" && (!document.querySelector("#uphonemid").value || !document.querySelector("#uphonelast").value)){
-                alert("휴대폰번호 뒷자리를 입력해주세요")
+            if(!document.querySelector("#uphonefirst").value=="" && !document.querySelector("#uphonelast").value){
+                alert("휴대폰 뒷번호를 입력해주세요")
+                event.preventDefault();
+                break;
+            }
+            if(!document.querySelector("#uphonefirst").value=="" && !document.querySelector("#uphonemid").value){
+                alert("휴대폰 중간번호를 입력해주세요")
                 event.preventDefault();
                 break;
             }
@@ -131,6 +136,18 @@
         });
     });
 
+    //특수문자 input + textarea 태그 모두 체크
+    document.querySelector('body').addEventListener('keyup', function(event){
+        document.querySelectorAll('textarea').forEach(function(element){
+            let regExp = /[<>]/gi;
+            if(regExp.test(element.value)){
+                alert("특수문자는 입력하실 수 없습니다");
+                element.value="";
+                element.focus();
+            }
+        });
+    });
+
     
     //-------------------- 배송지 데이터 저장
 
@@ -171,7 +188,7 @@
 
 
     
-
+  
 })();
 
 
