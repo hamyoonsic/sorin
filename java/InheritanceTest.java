@@ -10,9 +10,10 @@ class Circle extends MyPoint{
 }
 
 
-//ÃÊ±âÈ­¸¦ ²À ÇØÁà¾ß ¸Ş¸ğ¸®¿¡ °ø°£ÀÌ ÇÒ´çµÈ´Ù ..ÀúÀå°ø°£ÀÌ »ı±ä´Ù
+//ì´ˆê¸°í™”ë¥¼ ê¼­ í•´ì¤˜ì•¼ ë©”ëª¨ë¦¬ì— ê³µê°„ì´ í• ë‹¹ëœë‹¤ ..ì €ì¥ê³µê°„ì´ ìƒê¸´ë‹¤
 // ex) MyPoint p = new MyPoint();
-// È¤Àº »ı¼ºÀÚ
+// í˜¹ì€ ìƒì„±ì
+
 
 public class InheritanceTest {
 	public static void main(String [] args) {
